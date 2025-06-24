@@ -26,14 +26,16 @@ const Navbar: React.FC<NavbarProps> = ({ toggleSidebar }) => {
   const [error, setError] = useState<string | null>(null);
   const [markingRead, setMarkingRead] = useState<number | null>(null);
 
-  const API_BASE_URL = 'http://127.0.0.1:8000';
+  const BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
+
 
   const fetchNotifications = async () => {
     try {
       setLoading(true);
       setError(null);
 
-      const response = await axios.get(`${API_BASE_URL}/admin/admin/unread-leaves`, {
+      const response = await axios.get(`${BASE_URL}/admin/admin/unread-leaves`, {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`,
           'Accept': 'application/json'
@@ -71,7 +73,7 @@ const Navbar: React.FC<NavbarProps> = ({ toggleSidebar }) => {
     try {
       setMarkingRead(leaveId);
       await axios.put(
-        `${API_BASE_URL}/leave/admin/mark-leave-read/${leaveId}`,
+        `${BASE_URL}/leave/admin/mark-leave-read/${leaveId}`,
         {},
         { headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
       });
@@ -90,7 +92,7 @@ const Navbar: React.FC<NavbarProps> = ({ toggleSidebar }) => {
       await Promise.all(
         notifications.map(notification =>
           axios.put(
-            `${API_BASE_URL}/leave/admin/mark-leave-read/${notification.id}`,
+            `${BASE_URL}/leave/admin/mark-leave-read/${notification.id}`,
             {},
             { headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` } }
           )
