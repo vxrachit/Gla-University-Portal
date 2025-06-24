@@ -10,7 +10,7 @@ interface LeaveRequest {
   faculty_id: number;
 }
 
-const BASE_URL = import.meta.env.VITE_API_URL;
+const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 const AdminLeaves: React.FC = () => {
   const [leaves, setLeaves] = useState<LeaveRequest[]>([]);
 

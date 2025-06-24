@@ -7,7 +7,7 @@ interface Faculty {
   name: string;
   email: string;
 }
-const BASE_URL = import.meta.env.VITE_API_URL;
+const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 const FacultiesPage: React.FC = () => {
   const [faculties, setFaculties] = useState<Faculty[]>([]);
   const [loading, setLoading] = useState(true);

@@ -3,7 +3,7 @@ import { useAuth } from '../../context/AuthContext';
 import { FiTrash2, FiUser, FiMail, FiBook, FiUsers } from 'react-icons/fi';
 import { motion } from 'framer-motion';
 
-const BASE_URL = import.meta.env.VITE_API_URL;
+const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 interface Student {
   id: number;
