@@ -20,9 +20,7 @@ const Register: React.FC = () => {
     const file = e.target.files?.[0];
     if (file) {
       const reader = new FileReader();
-      reader.onloadend = () => {
-        setPhoto(reader.result as string);
-      };
+      reader.onloadend = () => setPhoto(reader.result as string);
       reader.readAsDataURL(file);
     }
   };
@@ -37,11 +35,10 @@ const Register: React.FC = () => {
     }
 
     setIsLoading(true);
-
     try {
       await register(name, email, password, department, photo);
       navigate('/student');
-    } catch (error) {
+    } catch {
       setError('Registration failed. Please try again.');
     } finally {
       setIsLoading(false);
@@ -49,168 +46,105 @@ const Register: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-      <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="flex justify-center">
-          <div className="text-center">
-            <h1 className="text-4xl font-bold text-primary-600">GLA</h1>
-            <p className="mt-1 text-sm text-gray-500">University Portal</p>
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 px-4 py-12">
+      <div className="w-full max-w-md bg-gray-800/70 backdrop-blur-md text-white rounded-xl shadow-lg p-8 space-y-6">
+        <div className="text-center">
+          <h1 className="text-4xl font-extrabold text-indigo-400">GLA</h1>
+          <p className="text-sm text-gray-400">University Portal</p>
+          <h2 className="mt-4 text-2xl font-bold">Create a new account</h2>
+          <p className="text-sm text-gray-400">
+            Or{' '}
+            <Link to="/login" className="text-indigo-400 hover:underline">
+              sign in to your existing account
+            </Link>
+          </p>
+        </div>
+
+        {error && (
+          <div className="bg-red-600/20 border border-red-500 rounded p-3 text-sm text-red-300 flex items-center gap-2">
+            <AlertCircle className="h-5 w-5" />
+            {error}
           </div>
-        </div>
-        <h2 className="mt-6 text-center text-3xl font-bold text-gray-900">
-          Create a new account
-        </h2>
-        <p className="mt-2 text-center text-sm text-gray-600">
-          Or{' '}
-          <Link
-            to="/login"
-            className="font-medium text-primary-600 hover:text-primary-500"
-          >
-            sign in to your existing account
-          </Link>
-        </p>
+        )}
+
+        <form onSubmit={handleSubmit} className="space-y-5">
+          <div>
+            <label className="block text-sm mb-1">Full Name</label>
+            <div className="relative">
+              <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+              <input type="text" required value={name} onChange={(e) => setName(e.target.value)}
+                className="w-full bg-gray-700 text-white border border-gray-600 rounded-md pl-10 py-2 focus:ring-2 focus:ring-indigo-500" placeholder="John Doe" />
+            </div>
+          </div>
+
+          <div>
+            <label className="block text-sm mb-1">Email address</label>
+            <div className="relative">
+              <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+              <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)}
+                className="w-full bg-gray-700 text-white border border-gray-600 rounded-md pl-10 py-2 focus:ring-2 focus:ring-indigo-500" placeholder="you@example.com" />
+            </div>
+          </div>
+
+          <div>
+            <label className="block text-sm mb-1">Department</label>
+            <select value={department} onChange={(e) => setDepartment(e.target.value)}
+              className="w-full bg-gray-700 text-white border border-gray-600 rounded-md py-2 px-3 focus:ring-2 focus:ring-indigo-500">
+              <option>Computer Science</option>
+              <option>ECE</option>
+              <option>Mechanical</option>
+              <option>Others</option>
+            </select>
+          </div>
+
+          <div>
+            <label className="block text-sm mb-1">Upload Photo</label>
+            <div className="relative">
+              <Image className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+              <input type="file" accept="image/*" onChange={handlePhotoChange}
+                className="w-full bg-gray-700 text-white border border-gray-600 rounded-md pl-10 py-2 file:text-sm" />
+            </div>
+          </div>
+
+          <div>
+            <label className="block text-sm mb-1">Password</label>
+            <div className="relative">
+              <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+              <input type="password" required value={password} onChange={(e) => setPassword(e.target.value)}
+                className="w-full bg-gray-700 text-white border border-gray-600 rounded-md pl-10 py-2 focus:ring-2 focus:ring-indigo-500" />
+            </div>
+          </div>
+
+          <div>
+            <label className="block text-sm mb-1">Confirm Password</label>
+            <div className="relative">
+              <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+              <input type="password" required value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}
+                className="w-full bg-gray-700 text-white border border-gray-600 rounded-md pl-10 py-2 focus:ring-2 focus:ring-indigo-500" />
+            </div>
+          </div>
+
+          <button type="submit" disabled={isLoading}
+            className="w-full py-2 bg-indigo-600 hover:bg-indigo-500 text-white font-medium rounded-md transition">
+            {isLoading ? 'Creating account...' : 'Register'}
+          </button>
+        </form>
       </div>
 
-      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-          {error && (
-            <div className="mb-4 bg-error-50 border border-error-200 rounded-md p-4 animate-fade-in">
-              <div className="flex">
-                <div className="flex-shrink-0">
-                  <AlertCircle className="h-5 w-5 text-error-400" aria-hidden="true" />
-                </div>
-                <div className="ml-3">
-                  <p className="text-sm text-error-700">{error}</p>
-                </div>
-              </div>
-            </div>
-          )}
-
-          <form className="space-y-6" onSubmit={handleSubmit}>
-            <div>
-              <label htmlFor="name" className="form-label">Full Name</label>
-              <div className="mt-1 relative rounded-md shadow-sm">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <User className="h-5 w-5 text-gray-400" />
-                </div>
-                <input
-                  id="name"
-                  name="name"
-                  type="text"
-                  autoComplete="name"
-                  required
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  className="block w-full pl-10 border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
-                  placeholder="John Doe"
-                />
-              </div>
-            </div>
-
-            <div>
-              <label htmlFor="email" className="form-label">Email address</label>
-              <div className="mt-1 relative rounded-md shadow-sm">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Mail className="h-5 w-5 text-gray-400" />
-                </div>
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  autoComplete="email"
-                  required
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="block w-full pl-10 border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
-                  placeholder="you@example.com"
-                />
-              </div>
-            </div>
-
-            <div>
-              <label htmlFor="department" className="form-label">Department</label>
-              <select
-                id="department"
-                name="department"
-                required
-                value={department}
-                onChange={(e) => setDepartment(e.target.value)}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
-              >
-                <option>Computer Science</option>
-                <option>ECE</option>
-                <option>Mechanical</option>
-                <option>Others</option>
-              </select>
-            </div>
-
-            <div>
-              <label htmlFor="photo" className="form-label">Upload Photo</label>
-              <div className="mt-1 relative rounded-md shadow-sm">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Image className="h-5 w-5 text-gray-400" />
-                </div>
-                <input
-                  id="photo"
-                  name="photo"
-                  type="file"
-                  accept="image/*"
-                  onChange={handlePhotoChange}
-                  className="block w-full pl-10 border-gray-300 rounded-md sm:text-sm"
-                />
-              </div>
-            </div>
-
-            <div>
-              <label htmlFor="password" className="form-label">Password</label>
-              <div className="mt-1 relative rounded-md shadow-sm">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Lock className="h-5 w-5 text-gray-400" />
-                </div>
-                <input
-                  id="password"
-                  name="password"
-                  type="password"
-                  autoComplete="new-password"
-                  required
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="block w-full pl-10 border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
-                />
-              </div>
-            </div>
-
-            <div>
-              <label htmlFor="confirmPassword" className="form-label">Confirm Password</label>
-              <div className="mt-1 relative rounded-md shadow-sm">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Lock className="h-5 w-5 text-gray-400" />
-                </div>
-                <input
-                  id="confirmPassword"
-                  name="confirmPassword"
-                  type="password"
-                  autoComplete="new-password"
-                  required
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                  className="block w-full pl-10 border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
-                />
-              </div>
-            </div>
-
-            <div>
-              <button
-                type="submit"
-                className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
-                disabled={isLoading}
-              >
-                {isLoading ? 'Creating account...' : 'Register'}
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
+      <style>{`
+        .file::-webkit-file-upload-button {
+          visibility: hidden;
+        }
+        .file::before {
+          content: 'Upload';
+          display: inline-block;
+          background: #4f46e5;
+          color: white;
+          padding: 4px 12px;
+          border-radius: 4px;
+          cursor: pointer;
+        }
+      `}</style>
     </div>
   );
 };

@@ -70,7 +70,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         email: data.email,
         role: role,
         department: role === 'student' ? data.department : undefined,
-        photo: role === 'student' ? data.photo : undefined, // ✅ include photo for students
+        photo: role === 'student' ? data.photo : undefined, 
       };
       
 
