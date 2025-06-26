@@ -24,18 +24,23 @@ A full-stack university portal built using **React.js**, **FastAPI**, and **MySQ
 
 ## 📸 Screenshots
 
+### 🎉 Hero Page
+![Hero Page](https://docs.vxrachit.dpdns.org/public/glaportal/heropage.png)
+
+### 🔑 Login Selection Page
+![Login Selection Page](https://docs.vxrachit.dpdns.org/public/glaportal/loginselection.png)
+
 ### 👨‍🎓 Student Dashboard
-![Student Dashboard](https://raw.githubusercontent.com/vxrachit/gla/main/screenshots/student_dashboard.png)
+![Student Dashboard](https://docs.vxrachit.dpdns.org/public/glaportal/studentdashboard.png)
 
 ### 👨‍🏫 Faculty Dashboard
-![Faculty Dashboard](https://raw.githubusercontent.com/vxrachit/gla/main/screenshots/faculty_dashboard.png)
+![Faculty Dashboard](https://docs.vxrachit.dpdns.org/public/glaportal/facultydashboard.png)
 
 ### 🧑‍💼 Admin Dashboard
-![Admin Dashboard](https://raw.githubusercontent.com/vxrachit/gla/main/screenshots/admin_dashboard.png)
+![Admin Dashboard](https://docs.vxrachit.dpdns.org/public/glaportal/admindashboard.png)
 
 ### ⚙️ Backend API
-![Backend API](https://raw.githubusercontent.com/vxrachit/gla/main/screenshots/admin_dashboard.png)
-
+![Backend API](https://docs.vxrachit.dpdns.org/public/glaportal/backendapi.png)
 ---
 
 ## ⚙️ Tech Stack
