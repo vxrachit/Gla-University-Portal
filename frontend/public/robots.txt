@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://gla.vxrachit.is-a.dev/sitemap.xml
