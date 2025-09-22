@@ -11,7 +11,7 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://gla.vxrachit.dpdns.org","gla-vxrachit.pages.dev"], 
+    allow_origins=["https://gla.vxrachit.dpdns.org","gla.vxrachit.is-a.dev"], 
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
